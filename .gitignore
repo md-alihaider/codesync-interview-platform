@@ -13,6 +13,12 @@
 # testing
 /coverage
 
+# Convex generated files
+convex/_generated/
+
+# Convex local config
+.convex/
+
 # next.js
 /.next/
 /out/
@@ -32,6 +38,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+.env.local
 
 # vercel
 .vercel
