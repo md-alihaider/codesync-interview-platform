@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎥 CodeSync - Technical Interview Platform
 
-## Getting Started
+**CodeSync** is a professional-grade, real-time video conferencing and technical interview platform. It simplifies the interview process with high-quality video, secure authentication, and instant data synchronization.
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+- 🔐 **Secure Authentication:** Integrated with **Clerk** for robust user management and protected routes  
+- 📹 **4K Video Calls:** High-quality, low-latency video infrastructure powered by **GetStream**  
+- ⚡ **Real-time Backend:** Leveraging **Convex** for seamless database queries and real-time state updates  
+- 🔄 **Webhooks:** Automated user syncing between Clerk and Convex to ensure data integrity  
+- 🎨 **Modern UI/UX:** Built with **Next.js 15**, **Tailwind CSS**, and **Shadcn UI** for a responsive, sleek experience  
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 15 (App Router)  
+- **Database:** Convex  
+- **Auth:** Clerk  
+- **Video/Audio:** GetStream  
+- **Styling:** Tailwind CSS & Shadcn UI  
+
+---
+
+## ⚙️ Getting Started
+
+### 1. Clone the Repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [https://github.com/md-alihaider/codesync-interview-platform.git](https://github.com/md-alihaider/codesync-interview-platform.git)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2. Install Dependencies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Set Up Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create a `.env.local` file in the root directory and add the following:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+# Clerk
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 
-## Deploy on Vercel
+# Convex
+CONVEX_DEPLOYMENT=
+NEXT_PUBLIC_CONVEX_URL=
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Stream
+NEXT_PUBLIC_STREAM_API_KEY=
+STREAM_SECRET_KEY=
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+### 4. Run the Development Server
+
+Run frontend and backend simultaneously in two terminals:
+
+**Terminal 1 (Frontend):**
+```bash
+npm run dev
+```
+
+**Terminal 2 (Backend):**
+```bash
+npx convex dev
+```
+
+---
+
+## 🌐 Open in Browser
+
+👉 http://localhost:3000
