@@ -1,14 +1,22 @@
 import type { Metadata } from "next";
 import {
   ClerkProvider,
+  RedirectToSignIn,
   Show,
   SignInButton,
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Figtree, Noto_Serif } from "next/font/google";
 import "./globals.css";
 import ConvexClerkProvider from "@/components/providers/ConvexClerkProvider";
+import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { cn } from "@/lib/utils";
+
+const notoSerif = Noto_Serif({subsets:['latin'],variable:'--font-serif'});
+
+const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,11 +40,31 @@ export default function RootLayout({
 }>) {
   return (
     <ConvexClerkProvider>
-      <html lang="en">
+      <html
+        lang="en"
+        suppressHydrationWarning
+        className={cn( figtree.variable, "font-serif", notoSerif.variable)}
+      >
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Show when="signed-in">
+            <div className=" min-h-screen">
+              <Navbar />
+              <main>{children}</main>
+              </div>
+              </Show>
+
+            <Show when="signed-out">
+              <RedirectToSignIn />
+            </Show>
+          </ThemeProvider>
         </body>
       </html>
     </ConvexClerkProvider>
