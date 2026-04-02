@@ -43,7 +43,7 @@ export default function RootLayout({
       <html
         lang="en"
         suppressHydrationWarning
-        className={cn( figtree.variable, "font-serif", notoSerif.variable)}
+        className={cn( notoSerif.variable, "font-sans", figtree.variable)}
       >
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
