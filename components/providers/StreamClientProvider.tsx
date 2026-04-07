@@ -12,20 +12,37 @@ const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
   const { user, isLoaded } = useUser();
 
   useEffect(() => {
+    // 🛡️ GUARD: Don't run if Clerk hasn't loaded or user is missing
     if (!isLoaded || !user) return;
 
+    // 🕵️ Debug: Check if API key is missing
+    const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
+    if (!apiKey) throw new Error("Stream API key is missing");
+
     const client = new StreamVideoClient({
-      apiKey: process.env.NEXT_PUBLIC_STREAM_API_KEY!,
+      apiKey,
       user: {
-        id: user?.id,
-        name: user?.firstName || "" + " " + user?.lastName || "" || user?.id,
-        image: user?.imageUrl,
+        id: user.id,
+        // Cleaner name logic
+        name:
+          `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() || user.id,
+        image: user.imageUrl,
       },
+      // Call your server action
       tokenProvider: streamTokenProvider,
     });
 
     setStreamVideoClient(client);
-  }, [user, isLoaded]);
+
+    // 🧹 CLEANUP: This is crucial to prevent "Ghost Connections"
+    return () => {
+      client.disconnectUser();
+      setStreamVideoClient(undefined);
+    };
+
+    // 🚀 THE FIX: Only re-run if the User ID or Load state changes.
+    // Don't use the whole 'user' object here.
+  }, [user?.id, isLoaded]);
 
   if (!streamVideoClient) return <LoaderUI />;
 
