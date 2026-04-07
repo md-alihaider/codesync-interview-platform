@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import {
-  ClerkProvider,
-  RedirectToSignIn,
-  Show,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/nextjs";
+import { RedirectToSignIn, Show } from "@clerk/nextjs";
 import { Geist, Geist_Mono, Figtree, Noto_Serif } from "next/font/google";
+import "@stream-io/video-react-sdk/dist/css/styles.css";
 import "./globals.css";
 import ConvexClerkProvider from "@/components/providers/ConvexClerkProvider";
 import Navbar from "@/components/Navbar";
@@ -15,9 +9,9 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { Toaster } from "react-hot-toast";
 
-const notoSerif = Noto_Serif({subsets:['latin'],variable:'--font-serif'});
+const notoSerif = Noto_Serif({ subsets: ["latin"], variable: "--font-serif" });
 
-const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
+const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,7 +38,7 @@ export default function RootLayout({
       <html
         lang="en"
         suppressHydrationWarning
-        className={cn( notoSerif.variable, "font-sans", figtree.variable)}
+        className={cn(notoSerif.variable, "font-sans", figtree.variable)}
       >
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -56,11 +50,11 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Show when="signed-in">
-            <div className=" min-h-screen">
-              <Navbar />
-              <main>{children}</main>
+              <div className=" min-h-screen">
+                <Navbar />
+                <main>{children}</main>
               </div>
-              </Show>
+            </Show>
 
             <Show when="signed-out">
               <RedirectToSignIn />
